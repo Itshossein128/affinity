@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.env
+neo4j_data/
+coverage/
+.DS_Store
