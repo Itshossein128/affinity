@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 import { closeDriver } from './config/database.js';
 
 // Import routes
+import authRouter from './routes/auth.js';
 import onboardingRouter from './routes/onboarding.js';
 import graphRouter from './routes/graph.js';
 import importRouter from './routes/import.js';
@@ -20,6 +21,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use('/api/auth', authRouter);
 app.use('/api/onboarding', onboardingRouter);
 app.use('/api/graph', graphRouter);
 app.use('/api/import', importRouter);

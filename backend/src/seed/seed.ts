@@ -17,6 +17,7 @@ async function seed() {
       { id: uuidv4(), canonicalId: 'wd:Q571', name: 'Books & Literature', type: 'Category' },
       { id: uuidv4(), canonicalId: 'wd:Q7889', name: 'Video Games', type: 'Category' },
       { id: uuidv4(), canonicalId: 'wd:Q11016', name: 'Technology', type: 'Category' },
+      { id: uuidv4(), canonicalId: 'wd:Q211236', name: 'Celebrity', type: 'Category' },
       
       // Music Genres
       { id: uuidv4(), canonicalId: 'wd:Q11399', name: 'Rock', type: 'Genre' },
@@ -113,48 +114,83 @@ async function seed() {
 
       // Artists to Genres/Categories
       ['wd:Q5608', 'wd:Q6010', 'RELATED_TO'], // Eminem -> Rap
+      ['wd:Q5608', 'wd:Q638', 'RELATED_TO'], // Eminem -> Music
+      ['wd:Q5608', 'wd:Q211236', 'RELATED_TO'], // Eminem -> Celebrity
       ['wd:Q5608', 'wd:Q11424', 'RELATED_TO'], // Eminem -> Film & Series
       ['wd:Q44191', 'wd:Q11399', 'RELATED_TO'], // Radiohead -> Rock
       ['wd:Q44191', 'wd:Q9778', 'RELATED_TO'], // Radiohead -> Electronic
+      ['wd:Q44191', 'wd:Q638', 'RELATED_TO'], // Radiohead -> Music
+      ['wd:Q44191', 'wd:Q211236', 'RELATED_TO'], // Radiohead -> Celebrity
       ['wd:Q1299', 'wd:Q11399', 'RELATED_TO'], // The Beatles -> Rock
       ['wd:Q1299', 'wd:Q37073', 'RELATED_TO'], // The Beatles -> Pop
+      ['wd:Q1299', 'wd:Q638', 'RELATED_TO'], // The Beatles -> Music
+      ['wd:Q1299', 'wd:Q211236', 'RELATED_TO'], // The Beatles -> Celebrity
       ['wd:Q2274279', 'wd:Q6010', 'RELATED_TO'], // Kendrick Lamar -> Rap
+      ['wd:Q2274279', 'wd:Q638', 'RELATED_TO'], // Kendrick Lamar -> Music
+      ['wd:Q2274279', 'wd:Q211236', 'RELATED_TO'], // Kendrick Lamar -> Celebrity
       ['wd:Q2306', 'wd:Q11399', 'RELATED_TO'], // Pink Floyd -> Rock
+      ['wd:Q2306', 'wd:Q638', 'RELATED_TO'], // Pink Floyd -> Music
+      ['wd:Q2306', 'wd:Q211236', 'RELATED_TO'], // Pink Floyd -> Celebrity
       ['wd:Q187941', 'wd:Q9778', 'RELATED_TO'], // Daft Punk -> Electronic
+      ['wd:Q187941', 'wd:Q638', 'RELATED_TO'], // Daft Punk -> Music
+      ['wd:Q187941', 'wd:Q211236', 'RELATED_TO'], // Daft Punk -> Celebrity
       ['wd:Q93341', 'wd:Q8341', 'RELATED_TO'], // Miles Davis -> Jazz
+      ['wd:Q93341', 'wd:Q638', 'RELATED_TO'], // Miles Davis -> Music
+      ['wd:Q93341', 'wd:Q211236', 'RELATED_TO'], // Miles Davis -> Celebrity
       ['wd:Q255', 'wd:Q9730', 'RELATED_TO'], // Beethoven -> Classical
+      ['wd:Q255', 'wd:Q638', 'RELATED_TO'], // Beethoven -> Music
+      ['wd:Q255', 'wd:Q211236', 'RELATED_TO'], // Beethoven -> Celebrity
       ['wd:Q15920', 'wd:Q38848', 'RELATED_TO'], // Metallica -> Metal
+      ['wd:Q15920', 'wd:Q638', 'RELATED_TO'], // Metallica -> Music
+      ['wd:Q15920', 'wd:Q211236', 'RELATED_TO'], // Metallica -> Celebrity
       ['wd:Q47100846', 'wd:Q37073', 'RELATED_TO'], // Billie Eilish -> Pop
       ['wd:Q47100846', 'wd:Q9778', 'RELATED_TO'], // Billie Eilish -> Electronic
+      ['wd:Q47100846', 'wd:Q638', 'RELATED_TO'], // Billie Eilish -> Music
+      ['wd:Q47100846', 'wd:Q211236', 'RELATED_TO'], // Billie Eilish -> Celebrity
 
-      // Movies to Genres/Entities
+      // Movies to Genres/Entities & Category
       ['wd:Q172241', 'wd:Q130232', 'RELATED_TO'], // The Shawshank Redemption -> Drama
+      ['wd:Q172241', 'wd:Q11424', 'RELATED_TO'], // The Shawshank Redemption -> Film & Series
       ['wd:Q25188', 'wd:Q471839', 'RELATED_TO'], // Inception -> Sci-Fi
       ['wd:Q25188', 'wd:Q188473', 'RELATED_TO'], // Inception -> Action
+      ['wd:Q25188', 'wd:Q11424', 'RELATED_TO'], // Inception -> Film & Series
       ['wd:Q47703', 'wd:Q130232', 'RELATED_TO'], // The Godfather -> Drama
+      ['wd:Q47703', 'wd:Q11424', 'RELATED_TO'], // The Godfather -> Film & Series
       ['wd:Q104123', 'wd:Q130232', 'RELATED_TO'], // Pulp Fiction -> Drama
       ['wd:Q104123', 'wd:Q40831', 'RELATED_TO'], // Pulp Fiction -> Comedy
+      ['wd:Q104123', 'wd:Q11424', 'RELATED_TO'], // Pulp Fiction -> Film & Series
       ['wd:Q13417189', 'wd:Q471839', 'RELATED_TO'], // Interstellar -> Sci-Fi
       ['wd:Q13417189', 'wd:Q130232', 'RELATED_TO'], // Interstellar -> Drama
+      ['wd:Q13417189', 'wd:Q11424', 'RELATED_TO'], // Interstellar -> Film & Series
       ['wd:Q83495', 'wd:Q471839', 'RELATED_TO'], // The Matrix -> Sci-Fi
       ['wd:Q83495', 'wd:Q188473', 'RELATED_TO'], // The Matrix -> Action
+      ['wd:Q83495', 'wd:Q11424', 'RELATED_TO'], // The Matrix -> Film & Series
       ['wd:Q155438', 'wd:Q202866', 'RELATED_TO'], // Spirited Away -> Animation
+      ['wd:Q155438', 'wd:Q11424', 'RELATED_TO'], // Spirited Away -> Film & Series
       ['wd:Q61896510', 'wd:Q130232', 'RELATED_TO'], // Parasite -> Drama
+      ['wd:Q61896510', 'wd:Q11424', 'RELATED_TO'], // Parasite -> Film & Series
       ['wd:Q163872', 'wd:Q188473', 'RELATED_TO'], // The Dark Knight -> Action
       ['wd:Q163872', 'wd:Q130232', 'RELATED_TO'], // The Dark Knight -> Drama
+      ['wd:Q163872', 'wd:Q11424', 'RELATED_TO'], // The Dark Knight -> Film & Series
       ['wd:Q208592', 'wd:Q130232', 'RELATED_TO'], // 8 Mile -> Drama
+      ['wd:Q208592', 'wd:Q11424', 'RELATED_TO'], // 8 Mile -> Film & Series
       ['wd:Q208592', 'wd:Q5608', 'RELATED_TO'], // 8 Mile -> Eminem
 
-      // Books to Genres
+      // Books to Genres & Category
       ['wd:Q208460', 'wd:Q8253', 'RELATED_TO'], // 1984 -> Fiction
       ['wd:Q208460', 'wd:Q24925', 'RELATED_TO'], // 1984 -> Science Fiction
+      ['wd:Q208460', 'wd:Q571', 'RELATED_TO'], // 1984 -> Books & Literature
       ['wd:Q15228', 'wd:Q8253', 'RELATED_TO'], // The Lord of the Rings -> Fiction
       ['wd:Q15228', 'wd:Q132311', 'RELATED_TO'], // The Lord of the Rings -> Fantasy
+      ['wd:Q15228', 'wd:Q571', 'RELATED_TO'], // The Lord of the Rings -> Books & Literature
       ['wd:Q21100042', 'wd:Q213051', 'RELATED_TO'], // Sapiens -> Non-Fiction
+      ['wd:Q21100042', 'wd:Q571', 'RELATED_TO'], // Sapiens -> Books & Literature
       ['wd:Q190192', 'wd:Q24925', 'RELATED_TO'], // Dune -> Science Fiction
       ['wd:Q190192', 'wd:Q8253', 'RELATED_TO'], // Dune -> Fiction
+      ['wd:Q190192', 'wd:Q571', 'RELATED_TO'], // Dune -> Books & Literature
       ['wd:Q25169', 'wd:Q24925', 'RELATED_TO'], // The Hitchhiker's Guide -> Science Fiction
-      ['wd:Q25169', 'wd:Q40831', 'RELATED_TO'] // The Hitchhiker's Guide -> Comedy
+      ['wd:Q25169', 'wd:Q40831', 'RELATED_TO'], // The Hitchhiker's Guide -> Comedy
+      ['wd:Q25169', 'wd:Q571', 'RELATED_TO'] // The Hitchhiker's Guide -> Books & Literature
     ];
 
     for (const [sourceId, targetId, relationType] of relations) {
@@ -168,6 +204,7 @@ async function seed() {
 
     console.log('👤 Seeding Users...');
     const users = [
+      { id: 'be46acfc-1a21-47a6-9420-50f8d3817fe9', username: 'itshossein128', displayName: 'Hossein', createdAt: new Date().toISOString() },
       { id: uuidv4(), username: 'alice', displayName: 'Alice', createdAt: new Date().toISOString() },
       { id: uuidv4(), username: 'bob', displayName: 'Bob', createdAt: new Date().toISOString() }
     ];
@@ -180,6 +217,19 @@ async function seed() {
 
     console.log('🤝 Creating User Interests...');
     const interests = [
+      // Hossein (itshossein128)
+      { username: 'itshossein128', canonicalId: 'wd:Q208460', weight: 0.9 }, // 1984
+      { username: 'itshossein128', canonicalId: 'wd:Q15228', weight: 0.85 }, // The Lord of the Rings
+      { username: 'itshossein128', canonicalId: 'wd:Q25188', weight: 0.95 }, // Inception
+      { username: 'itshossein128', canonicalId: 'wd:Q13417189', weight: 0.9 }, // Interstellar
+      { username: 'itshossein128', canonicalId: 'wd:Q83495', weight: 0.85 }, // The Matrix
+      { username: 'itshossein128', canonicalId: 'wd:Q163872', weight: 0.8 }, // The Dark Knight
+      { username: 'itshossein128', canonicalId: 'wd:Q38848', weight: 0.7 }, // Metal
+      { username: 'itshossein128', canonicalId: 'wd:Q6010', weight: 0.8 }, // Rap/Hip-Hop
+      { username: 'itshossein128', canonicalId: 'wd:Q9778', weight: 0.75 }, // Electronic
+      { username: 'itshossein128', canonicalId: 'wd:Q188473', weight: 0.85 }, // Action
+      { username: 'itshossein128', canonicalId: 'wd:Q471839', weight: 0.9 }, // Sci-Fi
+      { username: 'itshossein128', canonicalId: 'wd:Q202866', weight: 0.75 }, // Animation
       // Alice
       { username: 'alice', canonicalId: 'wd:Q5608', weight: 0.9 }, // Eminem
       { username: 'alice', canonicalId: 'wd:Q44191', weight: 0.7 }, // Radiohead
@@ -205,6 +255,16 @@ async function seed() {
         { username, canonicalId, weight, addedAt: new Date().toISOString() }
       );
     }
+
+    console.log('🌲 Propagating Hierarchical Parent Links for Users...');
+    await tx.run(
+      `MATCH (u:User)-[:INTERESTED_IN]->(c:Concept)
+       MATCH (c)-[:RELATED_TO|SUB_CLASS_OF*1..2]->(parent:Concept)
+       WHERE parent.type IN ['Genre', 'Category']
+       MERGE (u)-[r:INTERESTED_IN]->(parent)
+       ON CREATE SET r.weight = 0.8, r.addedAt = $addedAt`,
+      { addedAt: new Date().toISOString() }
+    );
 
     await tx.commit();
     console.log('✅ Seed successful!');

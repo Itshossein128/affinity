@@ -36,6 +36,13 @@ const SEED_CONCEPTS = [
   { canonicalId: 'wd:Q155438', name: 'Spirited Away', type: 'Movie', category: 'Film' },
   { canonicalId: 'wd:Q61896510', name: 'Parasite', type: 'Movie', category: 'Film' },
 
+  // Book Genres
+  { canonicalId: 'wd:Q8253', name: 'Fiction', type: 'Genre', category: 'Books' },
+  { canonicalId: 'wd:Q24925', name: 'Science Fiction', type: 'Genre', category: 'Books' },
+  { canonicalId: 'wd:Q132311', name: 'Fantasy', type: 'Genre', category: 'Books' },
+  { canonicalId: 'wd:Q213051', name: 'Non-Fiction', type: 'Genre', category: 'Books' },
+  { canonicalId: 'wd:Q186424', name: 'Mystery', type: 'Genre', category: 'Books' },
+
   // Books
   { canonicalId: 'wd:Q208460', name: '1984', type: 'Book', category: 'Books' },
   { canonicalId: 'wd:Q15228', name: 'Lord of the Rings', type: 'Book', category: 'Books' },
@@ -52,7 +59,12 @@ const TYPE_EMOJI: Record<string, string> = {
   Book: '📚',
 };
 
-export default function OnboardingFlow({ onComplete }: { onComplete: (userId: string) => void }) {
+interface OnboardingFlowProps {
+  onComplete: (user: any) => void;
+  onSwitchToLogin?: () => void;
+}
+
+export default function OnboardingFlow({ onComplete, onSwitchToLogin }: OnboardingFlowProps) {
   const [step, setStep] = useState(1);
   const [username, setUsername] = useState('');
   const [displayName, setDisplayName] = useState('');
@@ -80,7 +92,7 @@ export default function OnboardingFlow({ onComplete }: { onComplete: (userId: st
         selectedConceptIds: Array.from(selectedConcepts),
       };
       const res = await apiClient.submitOnboarding(payload);
-      onComplete(res.user.id);
+      onComplete(res.user);
     } catch (e: any) {
       console.error(e);
       setError(e.message || 'Error saving profile');
@@ -143,10 +155,22 @@ export default function OnboardingFlow({ onComplete }: { onComplete: (userId: st
             <button
               disabled={!username.trim()}
               onClick={() => setStep(2)}
-              className="mt-8 w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="mt-8 w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               Continue →
             </button>
+
+            {onSwitchToLogin && (
+              <div className="mt-6 text-center">
+                <button
+                  type="button"
+                  onClick={onSwitchToLogin}
+                  className="text-sm text-primary hover:underline cursor-pointer"
+                >
+                  Already have an account? Log In →
+                </button>
+              </div>
+            )}
           </div>
         )}
 

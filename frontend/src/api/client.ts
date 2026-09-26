@@ -12,12 +12,31 @@ async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
   });
   if (!response.ok) {
     const errorBody = await response.text().catch(() => '');
-    throw new Error(`API error: ${response.status} ${response.statusText} - ${errorBody}`);
+    let parsedMessage = errorBody;
+    try {
+      const json = JSON.parse(errorBody);
+      if (json.error) parsedMessage = json.error;
+    } catch {
+      // Keep errorBody
+    }
+    throw new Error(parsedMessage || `API error: ${response.status} ${response.statusText}`);
   }
   return response.json();
 }
 
 export const apiClient = {
+  login: (username: string): Promise<{ user: any }> =>
+    fetchJson<{ user: any }>(`${API_BASE}/auth/login`, {
+      method: 'POST',
+      body: JSON.stringify({ username }),
+    }),
+
+  listUsers: (): Promise<{ users: any[] }> =>
+    fetchJson<{ users: any[] }>(`${API_BASE}/auth/users`),
+
+  getMe: (id: string): Promise<{ user: any }> =>
+    fetchJson<{ user: any }>(`${API_BASE}/auth/me/${encodeURIComponent(id)}`),
+
   fetchNeighborhood: (nodeId: string): Promise<NeighborhoodResponse> =>
     fetchJson<NeighborhoodResponse>(`${API_BASE}/graph/neighborhood?nodeId=${encodeURIComponent(nodeId)}`),
 

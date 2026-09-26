@@ -1,5 +1,14 @@
 export type NodeType = 'Genre' | 'Artist' | 'Movie' | 'Book' | 'Game' | 'Category' | 'Person' | 'User';
 
+export interface UserNode {
+  id: string;
+  username: string;
+  displayName: string;
+  avatarUrl?: string;
+  createdAt?: string;
+  interestCount?: number;
+}
+
 export interface BaseNode {
   id: string;
   type: NodeType;

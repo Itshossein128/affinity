@@ -37,6 +37,19 @@ export async function createUserWithInterests(payload: OnboardingPayload) {
         }
       );
     }
+
+    // Automatically connect user to parent Genres and Categories
+    await tx.run(
+      `MATCH (u:User {id: $userId})-[:INTERESTED_IN]->(c:Concept)
+       MATCH (c)-[:RELATED_TO|SUB_CLASS_OF*1..2]->(parent:Concept)
+       WHERE parent.type IN ['Genre', 'Category']
+       MERGE (u)-[r:INTERESTED_IN]->(parent)
+       ON CREATE SET r.weight = 0.8, r.addedAt = $addedAt`,
+      {
+        userId,
+        addedAt: new Date().toISOString()
+      }
+    );
     
     await tx.commit();
     

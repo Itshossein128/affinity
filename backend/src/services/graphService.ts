@@ -4,17 +4,31 @@ import { ConceptNode, UserNode } from '../types/index.js';
 export async function getNeighborhood(nodeId: string) {
   const session = getSession();
   try {
-    // Query all relationships (both directions) for the focus node
+    // If the focus node is a User, return top-level Categories (or fallback to all interests)
+    // For Concept nodes, return all parent, child, and related relationships
     const query = `
       MATCH (n {id: $nodeId})
+      WITH n, labels(n) AS lbls
+      OPTIONAL MATCH (n:User)-[rCat:INTERESTED_IN]->(cat:Concept {type: 'Category'})
+      WITH n, lbls, collect(DISTINCT {
+        node: cat,
+        relType: type(rCat),
+        direction: 'outgoing',
+        properties: properties(rCat)
+      }) AS catNeighbors
       OPTIONAL MATCH (n)-[r]-(m)
+      WITH n, lbls, catNeighbors, collect(DISTINCT {
+        node: m,
+        relType: type(r),
+        direction: CASE WHEN startNode(r) = n THEN 'outgoing' ELSE 'incoming' END,
+        properties: properties(r)
+      }) AS allNeighbors
       RETURN n,
-        collect(DISTINCT {
-          node: m,
-          relType: type(r),
-          direction: CASE WHEN startNode(r) = n THEN 'outgoing' ELSE 'incoming' END,
-          properties: properties(r)
-        }) AS neighbors
+        CASE
+          WHEN 'User' IN lbls AND size([x IN catNeighbors WHERE x.node IS NOT NULL]) > 0
+          THEN [x IN catNeighbors WHERE x.node IS NOT NULL]
+          ELSE [x IN allNeighbors WHERE x.node IS NOT NULL]
+        END AS neighbors
     `;
 
     const result = await session.run(query, { nodeId });
